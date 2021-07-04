@@ -21,6 +21,8 @@ TODO
 * [Fast Refresh](https://github.com/pmmmwh/react-refresh-webpack-plugin)
 * Yarn
 
+Works out of the box. Doesn't screw up `fs` and other node built-ins (use them directly in your components!)
+
 ### Install
 
 ```sh
@@ -34,6 +36,10 @@ yarn
 ```
 yarn run start
 ```
+
+## Static Website
+
+Gatsby? Next.js? react-static?
 
 ## TypeScript Node App
 
