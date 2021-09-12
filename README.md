@@ -43,13 +43,13 @@ Gatsby? Next.js? react-static?
 
 ## TypeScript Node App
 
-[Rollup](https://rollupjs.org/guide/en/) with [`@mpen/rollup-preset-tsapp`](https://github.com/mnpenner/rollup-plugins/tree/default/packages/rollup-preset-tsapp).
+esbuild
 
 Use [`cli-api`](https://github.com/mnpenner/node-cli-api) for a command-line interface.
 
 ## TypeScript Node Library
 
-[Rollup](https://rollupjs.org/guide/en/) with [`@mpen/rollup-preset-tslib`](https://github.com/mnpenner/rollup-plugins/tree/default/packages/rollup-preset-tslib)
+esbuild
 
 ## GraphQL Server
 
@@ -63,3 +63,17 @@ I prefer a relational database on the backend (MariaDB or PostgreSQL). To genera
 ## GraphQL Client
 
 I used to think Apollo Client was the obvious choice, but it has [weird caching behaviour](https://github.com/apollographql/apollo-client/issues/5963) out of the box. Would like to try [URQL](https://formidable.com/open-source/urql/docs/comparison/).
+
+## Build Tools/Bundlers
+
+|    | App  | Lib |
+| --- | --- | --- |
+| Web  | Webpack? (esbuild splitting is WIP and doesn't have same set of loaders) | `esbuild --bundle --minify --sourcemap --target=chrome58,firefox57,safari11,edge16`[§](https://esbuild.github.io/getting-started/#bundling-for-the-browser) |
+| Node  | `esbuild src/main.ts --bundle --outfile=dist/onemig.js --platform=node [--minify] [--target=node14 --sourcemap --watch]`[§](https://esbuild.github.io/getting-started/#bundling-for-node)  | esbuild + `tsc --emitDeclarationOnly` ? |
+
+## Package Managers
+
+- [npm](https://www.npmjs.com/)
+- [yarn](https://classic.yarnpkg.com/lang/en/)
+- [yarn 2](https://yarnpkg.com/)
+- [pnpm](https://pnpm.io/)
