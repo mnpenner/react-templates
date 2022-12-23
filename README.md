@@ -7,9 +7,15 @@ Create React App?
 
 ## React Component Library
 
-TODO
+Storybook?
 
 ## React Desktop App
+
+### Tauri
+
+https://tauri.app/v1/guides/getting-started/setup/next-js/
+
+### Electron
 
 [Electron React Boilerplate](https://github.com/electron-react-boilerplate/electron-react-boilerplate)
 
@@ -23,7 +29,7 @@ TODO
 
 Works out of the box. Doesn't screw up `fs` and other node built-ins (use them directly in your components!)
 
-### Install
+#### Install
 
 ```sh
 git clone --depth 1 --single-branch https://github.com/electron-react-boilerplate/electron-react-boilerplate.git your-project-name
@@ -31,7 +37,7 @@ cd your-project-name
 yarn
 ```
 
-### Run
+#### Run
 
 ```
 yarn run start
@@ -39,17 +45,13 @@ yarn run start
 
 ## Static Website
 
-Gatsby? Next.js? react-static?
+~~Gatsby?~~ Next.js? ~~react-static?~~
 
 ## TypeScript Node App
 
 esbuild
 
 Use [`cli-api`](https://github.com/mnpenner/node-cli-api) for a command-line interface.
-
-## TypeScript Node Library
-
-esbuild
 
 ## TypeScript Library
 
@@ -128,6 +130,15 @@ I used to think Apollo Client was the obvious choice, but it has [weird caching 
 | --- | --- | --- |
 | Web  | Webpack? (esbuild splitting is WIP and doesn't have same set of loaders) | `esbuild --bundle --minify --sourcemap --target=chrome58,firefox57,safari11,edge16`[§](https://esbuild.github.io/getting-started/#bundling-for-the-browser) |
 | Node  | `esbuild src/main.ts --bundle --outfile=dist/onemig.js --platform=node [--minify] [--target=node14 --sourcemap --watch]`[§](https://esbuild.github.io/getting-started/#bundling-for-node)  | esbuild + `tsc --emitDeclarationOnly` ? |
+
+
+- [webpack](https://webpack.js.org/)
+- [Turbopack](https://turbo.build/pack)
+- [esbuild](https://esbuild.github.io/)
+- [swc](https://swc.rs/)
+- [tsc](https://www.typescriptlang.org/docs/handbook/compiler-options.html)
+- [rollup.js](https://rollupjs.org/guide/en/)
+- [Parcel](https://parceljs.org/)
 
 ## Package Managers
 
