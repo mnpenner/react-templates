@@ -51,6 +51,64 @@ Use [`cli-api`](https://github.com/mnpenner/node-cli-api) for a command-line int
 
 esbuild
 
+## TypeScript Library
+
+- https://github.com/mnpenner/imut-utils/tree/410a13f0be7fb283b7b639ac56ef78879849cc83
+- https://jestjs.io/docs/getting-started#via-ts-jest
+
+```sh
+yarn init -2
+yarn plugin import @yarnpkg/plugin-typescript
+npx -p typescript tsc --init
+yarn add --dev @types/jest jest ts-jest typescript
+yarn install
+yarn run ts-jest config:init
+```
+
+```.hgignore
+# .hgignore
+syntax: regexp
+
+# https://github.com/yarnpkg/berry/issues/454#issuecomment-530312089
+^\.yarn/(?!(plugins|releases)/)
+^\.pnp\.
+
+^dist/
+
+# Default ignored files
+^\.idea/shelf/
+^\.idea/workspace\.xml$
+# Editor-based HTTP Client requests
+^\.idea/httpRequests/
+# Datasource local storage ignored files
+^\.idea/dataSources/
+^\.idea/dataSources\.local\.xml$
+```
+
+```json
+// package.json
+{
+  "name": "@mnpenner/imut-utils",
+  "version": "0.1.0",
+  "packageManager": "yarn@3.3.1",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "test": "jest"
+  },
+  "devDependencies": {
+    "@types/jest": "^29.2.4",
+    "jest": "^29.3.1",
+    "ts-jest": "^29.0.3",
+    "typescript": "^4.9.4"
+  }
+}
+```
+
 ## GraphQL Server
 
 [Apollo Server](https://www.apollographql.com/docs/apollo-server/). I used to recommend writing the schema using the GraphQL definition language (SDL) and using a loader/plugin to compile it, but now I think the language is [too weak](https://github.com/graphql/graphql-spec/issues/190), so we might be better off doing it the other way around -- write the schema in TypeScript and compile it back to SDL if desired, or just use GraphiQL or [GraphQL Playground](https://github.com/graphql/graphql-playground#faq).
