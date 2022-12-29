@@ -55,8 +55,9 @@ Use [`cli-api`](https://github.com/mnpenner/node-cli-api) for a command-line int
 
 ## TypeScript Library
 
-- https://github.com/mnpenner/imut-utils/tree/410a13f0be7fb283b7b639ac56ef78879849cc83
+- https://github.com/mnpenner/imut-utils/tree/4c5efbb0efe86a3cc8f31c0a1352511c19e23ced
 - https://jestjs.io/docs/getting-started#via-ts-jest
+- https://stackoverflow.com/questions/74955397/how-to-compile-a-typescript-library-to-mjs-and-include-d-ts
 
 ```sh
 yarn init -2
@@ -91,21 +92,27 @@ syntax: regexp
 // package.json
 {
   "name": "@mnpenner/imut-utils",
-  "version": "0.1.0",
+  "version": "0.1.11",
   "packageManager": "yarn@3.3.1",
-  "main": "dist/index.js",
+  "main": "dist/index.mjs",
+  "type": "module",
   "types": "dist/index.d.ts",
   "files": [
     "/dist"
   ],
   "scripts": {
-    "build": "tsc",
-    "test": "jest"
+    "build": "rollup -c",
+    "test": "jest --silent=false",
+    "publish-patch": "npm version patch && hg ci -m \"Publish v$(jq -r '.version' package.json)\" && npm publish"
   },
   "devDependencies": {
+    "@rollup/plugin-terser": "^0.2.1",
+    "@rollup/plugin-typescript": "^10.0.1",
     "@types/jest": "^29.2.4",
     "jest": "^29.3.1",
+    "rollup": "^3.9.0",
     "ts-jest": "^29.0.3",
+    "tslib": "^2.4.1",
     "typescript": "^4.9.4"
   }
 }
