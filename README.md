@@ -1,13 +1,169 @@
 # react-templates
 A curated list of React starter templates for various project types.
 
-## React Web App
+## Client-side Web App
 
-Create React App?
+```sh
+bun create vite my-react-app --template react-ts
+```
+
+https://vitejs.dev/guide/
 
 ## React Component Library
 
-Storybook?
+Vite w/ [`vite-plugin-dts`](https://github.com/qmhc/vite-plugin-dts) and special entrypoint for `lib`:
+
+### vite.config.ts
+
+```ts
+import {defineConfig} from 'vite'
+import react from '@vitejs/plugin-react'
+import {resolve} from 'node:path'
+import dts from "vite-plugin-dts"
+
+// https://vitejs.dev/config/
+export default defineConfig({
+    plugins: [
+        react(),
+        dts({
+            insertTypesEntry: true,
+            rollupTypes: true,
+        }),
+    ],
+    clearScreen: false,
+    css: {
+        modules: {
+            localsConvention: 'camelCaseOnly',
+        }
+    },
+    // envDir: __dirname,
+
+    // https://vitejs.dev/guide/build#library-mode
+    build: {
+        // outDir: '../dist',
+        // emptyOutDir: true,
+        minify: true,
+        lib: {
+            entry: resolve(__dirname, 'src/bundle.ts'),
+            name: '@mpen/react-basic-inputs',
+            fileName: 'react-basic-inputs',
+        },
+        rollupOptions: {
+            // input: {
+            // app: 'src/index.html',
+            // },
+            external: [
+                'react',
+                'react-dom',
+                'react/jsx-runtime',
+            ],
+            output: {
+                // Provide global variables to use in the UMD build
+                // for externalized deps
+                globals: {
+                    'react': 'React',
+                    'react-dom': 'ReactDOM',
+                    'react/jsx-runtime': 'jsxRuntime',
+                },
+            },
+        }
+    },
+})
+```
+
+
+## Non-React Library
+
+[Rollup](https://rollupjs.org/introduction/).
+
+### rollup.config.js
+
+```js
+import typescript from '@rollup/plugin-typescript';
+import terser from '@rollup/plugin-terser';
+
+export default {
+    input: 'src/index.ts',
+    output: [
+        {
+            dir: 'dist',
+            format: 'esm',
+            entryFileNames: '[name].mjs',
+        },
+        {
+            dir: 'dist',
+            format: 'cjs',
+            entryFileNames: '[name].cjs',
+        },
+    ],
+    plugins: [
+        typescript(),
+        terser({
+            format: {
+                comments: 'some',
+                beautify: true,
+                ecma: '2022',
+            },
+            compress: false,
+            mangle: false,
+            module: true,
+        }),
+    ],
+    external: ['chalk']
+};
+
+```
+
+
+### package.json
+
+```json
+{
+  "name": "@mpen/is-type",
+  "version": "0.1.11",
+  "packageManager": "yarn@3.3.1",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "type": "module",
+  "files": [
+    "/dist"
+  ],
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -cw",
+    "test": "jest --silent=false --passWithNoTests",
+    "patch": "npm version patch && VER=$(jq -r '.version' package.json) && hg ci -m \"Publish v$VER\" && hg tag \"v$VER\"",
+    "all": "run-p build test docs",
+    "docs": "typedoc src/index.ts && hg addremove docs",
+    "push": "hg pushall",
+    "release": "run-s all patch && npm publish --access=public && hg pushall"
+  },
+  "devDependencies": {
+    "@rollup/plugin-terser": "^0.4.0",
+    "@rollup/plugin-typescript": "^11.0.0",
+    "@types/jest": "^29.2.6",
+    "@types/node": "^18.11.18",
+    "jest": "^29.3.1",
+    "npm-run-all": "^4.1.5",
+    "rollup": "^3.10.1",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
+    "tslib": "^2.4.1",
+    "typedoc": "^0.23.24",
+    "typedoc-plugin-missing-exports": "^1.0.0",
+    "typescript": "^4.9.4"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mnpenner/is-type"
+  }
+}
+```
 
 ## React Desktop App
 
